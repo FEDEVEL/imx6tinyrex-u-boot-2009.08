@@ -140,7 +140,7 @@
  * Miscellaneous configurable options
  */
 #define CONFIG_SYS_LONGHELP		/* undef to save memory */
-#define CONFIG_SYS_PROMPT		"Rex U-Boot > "
+#define CONFIG_SYS_PROMPT		"Tiny U-Boot > "
 #define CONFIG_AUTO_COMPLETE
 #define CONFIG_SYS_CBSIZE		1024	/* Console I/O Buffer Size */
 /* Print Buffer Size */
@@ -203,7 +203,7 @@
 	#define CONFIG_FSL_SF		1
 //	#define CONFIG_SPI_FLASH_IMX_M25PXX	1
 	#define CONFIG_SPI_FLASH_IMX_SST	1 //iMX6 Rex has this FLASH
-	#define CONFIG_SPI_FLASH_CS	2	  //iMX6 Rex FLASH is on CS2
+	#define CONFIG_SPI_FLASH_CS	0	  //iMX6 Rex FLASH is on CS2
 	#define CONFIG_IMX_ECSPI
 	#define IMX_CSPI_VER_2_3	1
 	#define MAX_SPI_BYTES		(64 * 4)
@@ -223,9 +223,9 @@
 	#define CONFIG_MMC
 	#define CONFIG_GENERIC_MMC
 	#define CONFIG_IMX_MMC
-	#define CONFIG_SYS_FSL_USDHC_NUM        2
+	#define CONFIG_SYS_FSL_USDHC_NUM        1
 	#define CONFIG_SYS_FSL_ESDHC_ADDR       0
-	#define CONFIG_SYS_MMC_ENV_DEV  2
+	#define CONFIG_SYS_MMC_ENV_DEV  1
 	#define CONFIG_DOS_PARTITION	1
 	#define CONFIG_CMD_FAT		1
 	#define CONFIG_CMD_EXT2		1
@@ -321,13 +321,13 @@
 	#define CONFIG_ENV_OFFSET       (768 * 1024)
 #elif defined(CONFIG_FSL_ENV_IN_SF)
 	#define CONFIG_ENV_IS_IN_SPI_FLASH	1
-	#define CONFIG_ENV_SPI_CS		2
+	#define CONFIG_ENV_SPI_CS		0
 	#define CONFIG_ENV_OFFSET       (768 * 1024)
 #else
 	#define CONFIG_ENV_IS_NOWHERE	1
 #endif
 
-#define CONFIG_SPLASH_SCREEN
+//#define CONFIG_SPLASH_SCREEN
 #ifdef CONFIG_SPLASH_SCREEN
 	/*
 	 * Framebuffer and LCD

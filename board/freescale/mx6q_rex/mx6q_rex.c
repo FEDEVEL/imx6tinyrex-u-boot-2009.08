@@ -369,17 +369,19 @@ static void setup_uart(void)
 {
 #if defined CONFIG_MX6Q
 	/* UART1 TXD */
-	mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT10__UART1_TXD);
+	//mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT10__UART1_TXD);
+	mxc_iomux_v3_setup_pad(MX6Q_PAD_SD3_DAT7__UART1_TXD);
 
 	/* UART1 RXD */
-	mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT11__UART1_RXD);
+	//mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT11__UART1_RXD);
+	mxc_iomux_v3_setup_pad(MX6Q_PAD_SD3_DAT6__UART1_RXD);
 
-	mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D20__UART1_RTS); // UART1_RTS
-	mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D19__UART1_CTS); // UART1_CTS
-	mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D25__UART1_DSR); // UART1_DSR
-	mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D24__UART1_DTR); // UART1_DTR
-	mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D23__UART1_DCD); // UART1_DCD
-	mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_EB3__UART1_RI);  // UART1_RI
+	//mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D20__UART1_RTS); // UART1_RTS
+	//mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D19__UART1_CTS); // UART1_CTS
+	//mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D25__UART1_DSR); // UART1_DSR
+	//mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D24__UART1_DTR); // UART1_DTR
+	//mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D23__UART1_DCD); // UART1_DCD
+	//mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_EB3__UART1_RI);  // UART1_RI
 
 #elif defined CONFIG_MX6DL
 	/* UART1 TXD */
@@ -412,12 +414,21 @@ void setup_lvds_poweron(void)
 #endif
 
 #ifdef CONFIG_I2C_MXC
-#define I2C1_SDA_GPIO5_26_BIT_MASK  (1 << 26)
-#define I2C1_SCL_GPIO5_27_BIT_MASK  (1 << 27)
+//#define I2C1_SDA_GPIO5_26_BIT_MASK  (1 << 26)
+#define I2C1_SDA_GPIO3_28_BIT_MASK  (1 << 28) //Tiny
+
+//#define I2C1_SCL_GPIO5_27_BIT_MASK  (1 << 27)
+#define I2C1_SCL_GPIO3_21_BIT_MASK  (1 << 21) //Tiny
+
 #define I2C2_SCL_GPIO4_12_BIT_MASK  (1 << 12)
 #define I2C2_SDA_GPIO4_13_BIT_MASK  (1 << 13)
-#define I2C3_SCL_GPIO3_17_BIT_MASK   (1 << 17)
-#define I2C3_SDA_GPIO3_18_BIT_MASK   (1 << 18)
+
+//#define I2C3_SCL_GPIO3_17_BIT_MASK   (1 << 17)
+#define I2C3_SCL_GPIO1_5_BIT_MASK   (1 << 5) //Tiny
+
+//#define I2C3_SDA_GPIO3_18_BIT_MASK   (1 << 18)
+#define I2C3_SDA_GPIO7_11_BIT_MASK   (1 << 11) //Tiny
+
 
 
 static void setup_i2c(unsigned int module_base)
@@ -428,13 +439,16 @@ static void setup_i2c(unsigned int module_base)
 	case I2C1_BASE_ADDR:
 #if defined CONFIG_MX6Q
 		/* i2c1 SDA */
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT8__I2C1_SDA);
+		//mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT8__I2C1_SDA);
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D28__I2C1_SDA);
 
 		/* i2c1 SCL */
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT9__I2C1_SCL);
+		//mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT9__I2C1_SCL);
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D21__I2C1_SCL);
 #elif defined CONFIG_MX6DL
 		/* i2c1 SDA */
 		mxc_iomux_v3_setup_pad(MX6DL_PAD_CSI0_DAT8__I2C1_SDA);
+
 		/* i2c1 SCL */
 		mxc_iomux_v3_setup_pad(MX6DL_PAD_CSI0_DAT9__I2C1_SCL);
 #endif
@@ -469,9 +483,12 @@ static void setup_i2c(unsigned int module_base)
 	case I2C3_BASE_ADDR:
 #if defined CONFIG_MX6Q
 		/* EIM_D17 for I2C3_SCL - iMX6 Rex */
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D17__I2C3_SCL);
+		//mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D17__I2C3_SCL);
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_GPIO_5__I2C3_SCL);
+		
 		/* EIM_D18 for I2C3_SDA - iMX6 Rex */
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D18__I2C3_SDA);
+		//mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D18__I2C3_SDA);
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_GPIO_16__I2C3_SDA);
 
 #elif defined CONFIG_MX6DL
 		/* GPIO_3 for I2C3_SCL */
@@ -498,16 +515,18 @@ static void mx6q_i2c_gpio_scl_direction(int bus, int output)
 	switch (bus) {
 	case 1:
 #if defined CONFIG_MX6Q
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT9__GPIO_5_27);
+		//mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT9__GPIO_5_27);
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D21__GPIO_3_21);
 #elif defined CONFIG_MX6DL
 		mxc_iomux_v3_setup_pad(MX6DL_PAD_CSI0_DAT9__GPIO_5_27);
 #endif
-		reg = readl(GPIO5_BASE_ADDR + GPIO_GDIR);
+		reg = readl(GPIO3_BASE_ADDR + GPIO_GDIR);
 		if (output)
-			reg |= I2C1_SCL_GPIO5_27_BIT_MASK;
+			reg |= I2C1_SCL_GPIO3_21_BIT_MASK;
 		else
-			reg &= ~I2C1_SCL_GPIO5_27_BIT_MASK;
-		writel(reg, GPIO5_BASE_ADDR + GPIO_GDIR);
+			reg &= ~I2C1_SCL_GPIO3_21_BIT_MASK;
+		writel(reg, GPIO3_BASE_ADDR + GPIO_GDIR);
+
 		break;
 	case 2:
 #if defined CONFIG_MX6Q
@@ -524,16 +543,16 @@ static void mx6q_i2c_gpio_scl_direction(int bus, int output)
 		break;
 	case 3:
 #if defined CONFIG_MX6Q
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D17__GPIO_3_17);	// iMX6 Rex
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_GPIO_5__GPIO_1_5);
 #elif defined CONFIG_MX6DL
 		mxc_iomux_v3_setup_pad(MX6DL_PAD_GPIO_3__GPIO_1_3);
 #endif
-		reg = readl(GPIO3_BASE_ADDR + GPIO_GDIR);
+		reg = readl(GPIO1_BASE_ADDR + GPIO_GDIR);
 		if (output)
-			reg |= I2C3_SCL_GPIO3_17_BIT_MASK;
+			reg |= I2C3_SCL_GPIO1_5_BIT_MASK;
 		else
-			reg &= ~I2C3_SCL_GPIO3_17_BIT_MASK;
-		writel(reg, GPIO3_BASE_ADDR + GPIO_GDIR);
+			reg &= ~I2C3_SCL_GPIO1_5_BIT_MASK;
+		writel(reg, GPIO1_BASE_ADDR + GPIO_GDIR);
 		break;
 	}
 }
@@ -546,16 +565,16 @@ static void mx6q_i2c_gpio_sda_direction(int bus, int output)
 	switch (bus) {
 	case 1:
 #if defined CONFIG_MX6Q
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_CSI0_DAT8__GPIO_5_26);
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D28__GPIO_3_28);
 #elif defined CONFIG_MX6DL
 		mxc_iomux_v3_setup_pad(MX6DL_PAD_CSI0_DAT8__GPIO_5_26);
 #endif
-		reg = readl(GPIO5_BASE_ADDR + GPIO_GDIR);
+		reg = readl(GPIO3_BASE_ADDR + GPIO_GDIR);
 		if (output)
-			reg |= I2C1_SDA_GPIO5_26_BIT_MASK;
+			reg |= I2C1_SDA_GPIO3_28_BIT_MASK;
 		else
-			reg &= ~I2C1_SDA_GPIO5_26_BIT_MASK;
-		writel(reg, GPIO5_BASE_ADDR + GPIO_GDIR);
+			reg &= ~I2C1_SDA_GPIO3_28_BIT_MASK;
+		writel(reg, GPIO3_BASE_ADDR + GPIO_GDIR);
 		break;
 	case 2:
 #if defined CONFIG_MX6Q
@@ -571,16 +590,16 @@ static void mx6q_i2c_gpio_sda_direction(int bus, int output)
 		writel(reg, GPIO4_BASE_ADDR + GPIO_GDIR);
 	case 3:
 #if defined CONFIG_MX6Q
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D18__GPIO_3_18);	// iMX6 Rex
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_GPIO_16__GPIO_7_11);
 #elif defined CONFIG_MX6DL
 		mxc_iomux_v3_setup_pad(MX6DL_PAD_GPIO_6__GPIO_1_6);
 #endif
-		reg = readl(GPIO3_BASE_ADDR + GPIO_GDIR);
+		reg = readl(GPIO7_BASE_ADDR + GPIO_GDIR);
 		if (output)
-			reg |= I2C3_SDA_GPIO3_18_BIT_MASK;
+			reg |= I2C3_SDA_GPIO7_11_BIT_MASK;
 		else
-			reg &= ~I2C3_SDA_GPIO3_18_BIT_MASK;
-		writel(reg, GPIO3_BASE_ADDR + GPIO_GDIR);
+			reg &= ~I2C3_SDA_GPIO7_11_BIT_MASK;
+		writel(reg, GPIO7_BASE_ADDR + GPIO_GDIR);
 	default:
 		break;
 	}
@@ -593,12 +612,12 @@ static void mx6q_i2c_gpio_scl_set_level(int bus, int high)
 
 	switch (bus) {
 	case 1:
-		reg = readl(GPIO5_BASE_ADDR + GPIO_DR);
+		reg = readl(GPIO3_BASE_ADDR + GPIO_DR);
 		if (high)
-			reg |= I2C1_SCL_GPIO5_27_BIT_MASK;
+			reg |= I2C1_SCL_GPIO3_21_BIT_MASK;
 		else
-			reg &= ~I2C1_SCL_GPIO5_27_BIT_MASK;
-		writel(reg, GPIO5_BASE_ADDR + GPIO_DR);
+			reg &= ~I2C1_SCL_GPIO3_21_BIT_MASK;
+		writel(reg, GPIO3_BASE_ADDR + GPIO_DR);
 		break;
 	case 2:
 		reg = readl(GPIO4_BASE_ADDR + GPIO_DR);
@@ -609,12 +628,12 @@ static void mx6q_i2c_gpio_scl_set_level(int bus, int high)
 		writel(reg, GPIO4_BASE_ADDR + GPIO_DR);
 		break;
 	case 3:
-		reg = readl(GPIO3_BASE_ADDR + GPIO_DR);
+		reg = readl(GPIO1_BASE_ADDR + GPIO_DR);
 		if (high)
-			reg |= I2C3_SCL_GPIO3_17_BIT_MASK;
+			reg |= I2C3_SCL_GPIO1_5_BIT_MASK;
 		else
-			reg &= ~I2C3_SCL_GPIO3_17_BIT_MASK;
-		writel(reg, GPIO3_BASE_ADDR + GPIO_DR);
+			reg &= ~I2C3_SCL_GPIO1_5_BIT_MASK;
+		writel(reg, GPIO1_BASE_ADDR + GPIO_DR);
 		break;
 	}
 }
@@ -626,12 +645,12 @@ static void mx6q_i2c_gpio_sda_set_level(int bus, int high)
 
 	switch (bus) {
 	case 1:
-		reg = readl(GPIO5_BASE_ADDR + GPIO_DR);
+		reg = readl(GPIO3_BASE_ADDR + GPIO_DR);
 		if (high)
-			reg |= I2C1_SDA_GPIO5_26_BIT_MASK;
+			reg |= I2C1_SDA_GPIO3_28_BIT_MASK;
 		else
-			reg &= ~I2C1_SDA_GPIO5_26_BIT_MASK;
-		writel(reg, GPIO5_BASE_ADDR + GPIO_DR);
+			reg &= ~I2C1_SDA_GPIO3_28_BIT_MASK;
+		writel(reg, GPIO3_BASE_ADDR + GPIO_DR);
 		break;
 	case 2:
 		reg = readl(GPIO4_BASE_ADDR + GPIO_DR);
@@ -642,12 +661,12 @@ static void mx6q_i2c_gpio_sda_set_level(int bus, int high)
 		writel(reg, GPIO4_BASE_ADDR + GPIO_DR);
 		break;
 	case 3:
-		reg = readl(GPIO3_BASE_ADDR + GPIO_DR);
+		reg = readl(GPIO7_BASE_ADDR + GPIO_DR);
 		if (high)
-			reg |= I2C3_SDA_GPIO3_18_BIT_MASK;
+			reg |= I2C3_SDA_GPIO7_11_BIT_MASK;
 		else
-			reg &= ~I2C3_SDA_GPIO3_18_BIT_MASK;
-		writel(reg, GPIO3_BASE_ADDR + GPIO_DR);
+			reg &= ~I2C3_SDA_GPIO7_11_BIT_MASK;
+		writel(reg, GPIO7_BASE_ADDR + GPIO_DR);
 		break;
 	}
 }
@@ -659,16 +678,16 @@ static int mx6q_i2c_gpio_check_sda(int bus)
 
 	switch (bus) {
 	case 1:
-		reg = readl(GPIO5_BASE_ADDR + GPIO_PSR);
-		result = !!(reg & I2C1_SDA_GPIO5_26_BIT_MASK);
+		reg = readl(GPIO3_BASE_ADDR + GPIO_PSR);
+		result = !!(reg & I2C1_SDA_GPIO3_28_BIT_MASK);
 		break;
 	case 2:
 		reg = readl(GPIO4_BASE_ADDR + GPIO_PSR);
 		result = !!(reg & I2C2_SDA_GPIO4_13_BIT_MASK);
 		break;
 	case 3:
-		reg = readl(GPIO3_BASE_ADDR + GPIO_PSR);
-		result = !!(reg & I2C3_SDA_GPIO3_18_BIT_MASK);
+		reg = readl(GPIO7_BASE_ADDR + GPIO_PSR);
+		result = !!(reg & I2C3_SDA_GPIO7_11_BIT_MASK);
 		break;
 	}
 
@@ -805,17 +824,17 @@ s32 spi_get_cfg(struct imx_spi_dev_t *dev)
 	switch (dev->slave.cs) {
 	case 2:
 		/* SPI-NOR */
-		// iMX6 Rex Boot SPI is mapped to ECSPI3 CS2
-		dev->base = ECSPI3_BASE_ADDR;
+		// Tiny Boot SPI is mapped to ECSPI1 CS0
+		dev->base = ECSPI1_BASE_ADDR;
 		dev->freq = 25000000;
 		dev->ss_pol = IMX_SPI_ACTIVE_LOW;
-		dev->ss = 2;
+		dev->ss = 0;
 		dev->fifo_sz = 64 * 4;
 		dev->us_delay = 0;
 		break;
 
 	default:
-		printf("Invalid Bus ID! (For iMX6 Rex use: sf probe 3:2)\n");
+		printf("Invalid Bus ID! (For Tiny use: sf probe 3:2)\n");
 	}
 
 	return 0;
@@ -827,6 +846,25 @@ void spi_io_init(struct imx_spi_dev_t *dev)
 
 	switch (dev->base) {
 	case ECSPI1_BASE_ADDR:
+		// Tiny Boot SPI is mapped to ECSPI1 CS0
+		/* Enable ECSPI1 clocks */
+		reg = readl(CCM_BASE_ADDR + CLKCTL_CCGR1);
+		reg |= 0x03;
+		writel(reg, CCM_BASE_ADDR + CLKCTL_CCGR1);
+
+#if defined CONFIG_MX6Q		
+		/* SCLK */
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D16__ECSPI1_SCLK);
+
+		/* MISO */
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D17__ECSPI1_MISO);
+
+		/* MOSI */
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_D18__ECSPI1_MOSI);
+
+		/* SS0 */
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_EB2__ECSPI1_SS0);
+#endif
 		break;
 	case ECSPI2_BASE_ADDR:
 		break;
@@ -925,11 +963,11 @@ int board_eth_init(bd_t *bis)
  * that is required for UHS-I mode of operation.
  * Last element in struct is used to indicate 1.8V support.
  */
-struct fsl_esdhc_cfg usdhc_cfg[2] = {
-	//{USDHC1_BASE_ADDR, 1, 1, 1, 0},	not used for iMX6 Rex
-	{USDHC2_BASE_ADDR, 1, 1, 1, 0},
+struct fsl_esdhc_cfg usdhc_cfg[1] = {
+	//{USDHC1_BASE_ADDR, 1, 1, 1, 0},	
+	//{USDHC2_BASE_ADDR, 1, 1, 1, 0},
 	{USDHC3_BASE_ADDR, 1, 1, 1, 0},
-	//{USDHC4_BASE_ADDR, 1, 1, 1, 0},	not used for iMX6 Rex
+	//{USDHC4_BASE_ADDR, 1, 1, 1, 0},	
 };
 
 #if defined CONFIG_MX6Q
@@ -942,7 +980,7 @@ iomux_v3_cfg_t usdhc1_pads[] = {
 	MX6Q_PAD_SD1_DAT2__USDHC1_DAT2,
 	MX6Q_PAD_SD1_DAT3__USDHC1_DAT3,
 };*/
-
+/*
 iomux_v3_cfg_t usdhc2_pads[] = {
 	MX6Q_PAD_SD2_CLK__USDHC2_CLK,
 	MX6Q_PAD_SD2_CMD__USDHC2_CMD,
@@ -956,7 +994,7 @@ iomux_v3_cfg_t usdhc2_pads[] = {
 	MX6Q_PAD_NANDF_D7__USDHC2_DAT7,		// iMX6 Rex
 	MX6Q_PAD_GPIO_6__USDHC2_LCTL,		// iMX6 Rex
 };
-
+*/
 iomux_v3_cfg_t usdhc3_pads[] = {
 	MX6Q_PAD_SD3_CLK__USDHC3_CLK,
 	MX6Q_PAD_SD3_CMD__USDHC3_CMD,
@@ -1042,12 +1080,14 @@ int usdhc_gpio_init(bd_t *bis)
 				sizeof(usdhc1_pads[0]));
 			break;
 		*/
+		/*
 		case 0:
 			mxc_iomux_v3_setup_multiple_pads(usdhc2_pads,
 				sizeof(usdhc2_pads) /
 				sizeof(usdhc2_pads[0]));
 			break;
-		case 1:
+		*/
+		case 0:
 			mxc_iomux_v3_setup_multiple_pads(usdhc3_pads,
 				sizeof(usdhc3_pads) /
 				sizeof(usdhc3_pads[0]));
@@ -1704,13 +1744,15 @@ int mx6_rex_board_rev_name(void)
 	u32 reg;
 	int ret;
 
+	//!RF! must be updated for Tiny
+/*
 	// iMX6 Rex: setting GPIO function of pad; disabling internal pull up
 	mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_A17__GPIO_2_21 & MUX_PAD_CTRL(~PAD_CTL_PKE)); // board variant 0
 	mxc_iomux_v3_setup_pad(MX6Q_PAD_EIM_A16__GPIO_2_22 & MUX_PAD_CTRL(~PAD_CTL_PKE)); // board variant 1
 
 	ret = (reg & (1<<21)) >> 21; // board variant 0
 	ret += (reg & (1<<22)) >> 21; // board variant 1
-	
+*/	
 	return ret;
 }
 
@@ -1938,7 +1980,7 @@ void enet_board_init(void)
 
 int checkboard(void)
 {
-	printf("Board: %s-REX: Variant: %d Board: 0x%x [",
+	printf("Board: %s-TINY: Variant: %d Board: 0x%x [",
 	mx6_chip_name(),
 	mx6_rex_board_rev_name(),
 	fsl_system_rev);
